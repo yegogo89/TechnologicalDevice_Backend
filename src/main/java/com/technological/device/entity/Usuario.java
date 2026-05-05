@@ -1,29 +1,41 @@
 package com.technological.device.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*; //importa todas las anotaciones de JPA
 
-@Entity
+@Entity //es una anotacion de JPA que le dice a Spring Boot que esta clase representa una tabla en MySQL
+@Table(name = "usuarios")
 public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    @Id // Maca este campo como llave primaria - identificador unico
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // indica que el id se genere automaticamente usando el autoincremento de MySQL
+    private Long id;
+
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false)
     private String apellido;
+
+    @Column(nullable = false, unique = true)
     private String cedula;
+
+    @Column(nullable = false)
     private String contacto;
+
+    @Column(nullable = false, unique = true)
     private String correoElectronico;
+
+    @Column(nullable = false)
     private String password;
-    private String repetirPassword;
 
+    @Column(nullable = false)
+    private String rol;
 
+    //constructor vacio
+    public Usuario(){}
 
-
-
-
-
+    //set y get de la clase (entidad) usuario
+    public Long getId() { return id; }
 
     public String getNombre() {
         return nombre;
@@ -73,25 +85,20 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getRepetirPassword() {
-        return repetirPassword;
-    }
+    public String getRol() { return rol; }
 
-    public void setRepetirPassword(String repetirPassword) {
-        this.repetirPassword = repetirPassword;
-    }
+    public void setRol(String rol) { this.rol = rol; }
 
     @Override
     public String toString() {
         return "Usuario{" +
-                
+                "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", cedula='" + cedula + '\'' +
                 ", contacto='" + contacto + '\'' +
                 ", correoElectronico='" + correoElectronico + '\'' +
-                ", password='" + password + '\'' +
-                ", repetirPassword='" + repetirPassword + '\'' +
+                ", rol='" + rol + '\'' +
                 '}';
     }
 }
